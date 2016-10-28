@@ -10,7 +10,6 @@ public class Time {
 	
 	public Time() {
 		elapsed = 0L;
-		
 	}
 	
 	public void start() {
