@@ -3,8 +3,13 @@ package uk.co.johnjtaylor;
 import java.util.Random;
 
 public class Tester {
-	private Random rand = new Random();
+	private Random rand;
+	private Time timer;
 	
+	public Tester() {
+		rand = new Random();
+		timer = new Time();
+	}
 	
 	/**
 	 * Generate an array of given length but only including a chosen range of numbers
@@ -12,10 +17,10 @@ public class Tester {
 	 * @param min Minimum number the integer values inside the array can have
 	 * @param max Maximum number the integer values inside the array can have
 	 */
-	public int[] genArray(int length, int min, int max) {
-		int[] result = new int[length];
+	public Integer[] genArray(int length, int min, int max) {
+		Integer[] result = new Integer[length];
 		for(int i = 0; i < length; i++) {
-			int nextNum = rand.nextInt((max-min) + 1) + min;
+			Integer nextNum = rand.nextInt((max-min) + 1) + min;
 			result[i] = nextNum;
 		}
 		return result;
@@ -26,8 +31,8 @@ public class Tester {
 	 * Generates an array of given length with no min/max
 	 * @param length Length of the array
 	 */
-	public int[] genArray(int length) {
-		int[] result = new int[length];
+	public Integer[] genArray(int length) {
+		Integer[] result = new Integer[length];
 		for(int i = 0; i < length; i++) {
 			int nextNum = rand.nextInt();
 			result[i] = nextNum;
@@ -35,24 +40,7 @@ public class Tester {
 		return result;
 	}
 	
-	/**
-	 * Convenience method to get the current timestamp
-	 * @return The current time in a UNIX timestamp
-	 */
-	public Long currTime() {
-		return System.currentTimeMillis();
-	}
-	
-	/**
-	 * Returns the difference between two times (All in milliseconds)
-	 * @param startTime The time the algorithm began
-	 * @param endTime The time the algorithm finished
-	 * @return The difference between start & end time
-	 */
-	public Long timeDiff(long startTime, long endTime) {
-		return endTime - startTime;
-	}
-	
+
 	
 	/**
 	 * Runs and times a sorting algorithm 
@@ -66,9 +54,13 @@ public class Tester {
 	 * @param iterations The amount of test sorts to run
 	 */
 	public void test(Sort<Integer> sortProgram, int initialLength, String scale, int iterations) {
-		int[] array = genArray(initialLength);
+		System.out.println("Size | time");
+		Integer[] array = genArray(initialLength);
 		for (int i = 0; i < iterations; i++) {
-			
+			timer.start();
+			sortProgram.sortArray(array);
+			timer.stop();
+			array = genArray(array.length * 2);
 		}
 	}
 	
