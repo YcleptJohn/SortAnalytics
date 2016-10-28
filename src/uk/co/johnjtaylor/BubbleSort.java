@@ -6,13 +6,13 @@ package uk.co.johnjtaylor;
  * @param <T>
  *
  */
-public class BubbleSort<T extends Comparable<T>> extends Sort {
+public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 
 	/**
 	 * Takes an array of any comparable type and sorts it
 	 * @param array The array the be sorted
 	 */
-	public void sortArray(T[] array) {
+	public T[] sortArray(T[] array) {
 	    int swaps;
 		do {
 		    swaps = 0;
@@ -25,6 +25,7 @@ public class BubbleSort<T extends Comparable<T>> extends Sort {
 				}
 			}
 		} while (swaps > 0);
+		return array;
 	}
 
 }
