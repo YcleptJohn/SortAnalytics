@@ -54,14 +54,20 @@ public class Tester {
 	 * @param iterations The amount of test sorts to run
 	 */
 	public void test(Sort<Integer> sortProgram, int initialLength, String scale, int iterations) {
-		System.out.println("Size | time");
+		System.out.format("%15s%15s%n", "Size", "Time");
 		Integer[] array = genArray(initialLength);
 		for (int i = 0; i < iterations; i++) {
 			timer.start();
 			sortProgram.sortArray(array);
 			timer.stop();
+			System.out.format("%15s%15s%n", array.length, timer.getTime() + "ms");
 			array = genArray(array.length * 2);
 		}
+	}
+	
+	public static void main(String[] args) {
+		Tester t = new Tester();
+		t.test(new BubbleSort<Integer>(), 10000, "n", 10);
 	}
 	
 	
