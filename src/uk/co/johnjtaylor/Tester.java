@@ -50,8 +50,9 @@ public class Tester {
 	 * @param scale The scale string to parse
 	 * @param n The actual length of the array in use(used as n values in scale formulae)
 	 * @return The calculated result which is the next array length to use for testing
+	 * @throws IllegalArgumentException When the given scale string is an invalud calculation for scaling by 'n'
 	 */
-	public int parseScaleString(String scale, int n) {
+	public int parseScaleString(String scale, int n){
 		scale = scale.trim().toLowerCase();
 		String[] scaleArray = scale.split("(?=[*+-/^()])|(?<=[*+-/^()])");
 		ArrayList<String> scalePieces = new ArrayList<String>(Arrays.asList(scaleArray));
@@ -87,7 +88,25 @@ public class Tester {
 			throw new IllegalArgumentException("Your scale contained no reference to \'n\'(the current size). This is required for a scaling operation.");
 		}
 		
-		
+		boolean complete = false;
+		int i = 0;
+		while(!complete) {
+			String currentPiece = scalePieces.get(i);
+			if(currentPiece.equals("(")) {
+				Integer matchingBracketIndex = findNext(scalePieces, ")", i);
+				if(matchingBracketIndex == null) {
+					throw new IllegalArgumentException("Left bracket with no successive right back found. All brackets must be paired, left to right");
+				}
+				if((matchingBracketIndex - i) > 4) {
+					throw new IllegalArgumentException("More than 3 numbers/operations found inside a bracket pair");
+				}
+				
+			}
+			
+			i++;
+			if(i == scalePieces.size()) { i = 0; }
+			complete = true;
+		}
 		
 		
 		
@@ -116,18 +135,18 @@ public class Tester {
 	}
 	
 	/**
-	 * Searches a given array for a given character
-	 * @param array The array to be searched through
+	 * Searches a given arraylist for a given character
+	 * @param alToSearch The arraylist to be searched through
 	 * @param s The character to search for
 	 * @return The index of the character if found; Null if not found
 	 */
-	public Integer findNext(String[] array, String s) {
-		return findNext(array, s, 0);
+	public Integer findNext(ArrayList<String> alToSearch, String s) {
+		return findNext(alToSearch, s, 0);
 	}
 	
-	public Integer findNext(String[] array, String s, int startIndex) {
-		for(int i = startIndex; i < array.length; i++) {
-			if(array[i].equals(s)) {
+	public Integer findNext(ArrayList<String> alToSearch, String s, int startIndex) {
+		for(int i = startIndex; i < alToSearch.size(); i++) {
+			if(alToSearch.get(i).equals(s)) {
 				return i;
 			}
 		}
