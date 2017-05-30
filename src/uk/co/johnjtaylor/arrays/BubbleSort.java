@@ -1,9 +1,13 @@
-package uk.co.johnjtaylor;
+package uk.co.johnjtaylor.arrays;
+
+import java.util.Arrays;
+
+import uk.co.johnjtaylor.Sort;
 
 /**
  * A Simple bubblesort class used as an easy base-line for algorithm testing
  * @author John
- * @param <T>
+ * @param <T> Any type which is Comparable
  *
  */
 public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
@@ -25,6 +29,7 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 				}
 			}
 		} while (swaps > 0);
+		System.out.println(Arrays.deepToString(array));;
 		return array;
 	}
 
