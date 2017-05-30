@@ -12,7 +12,6 @@ public class Tester {
 	public Tester() {
 		rand = new Random();
 		timer = new Time();
-		
 	}
 	
 	/**
@@ -81,6 +80,12 @@ public class Tester {
 				nCount++;
 			}
 		}
+		System.out.println("LB: " + leftBracketCount);
+		System.out.println("RB: " + rightBracketCount);
+		System.out.println("#: " + numberCount);
+		System.out.println("Op: " + operatorCount);
+		
+		printArrayList(scalePieces);
 		if(leftBracketCount != rightBracketCount) {
 			throw new IllegalArgumentException("An unequal number of left and right brackets were given - they must be paired");
 		}
@@ -88,35 +93,82 @@ public class Tester {
 			throw new IllegalArgumentException("Your scale contained no reference to \'n\'(the current size). This is required for a scaling operation.");
 		}
 		
+		// Replace all references to 'n' with the actual value of n
+		while(findNext(scalePieces, "n") != null) {
+			Integer i = findNext(scalePieces, "n");
+			scalePieces.set(i, "" + n);
+		}
 		boolean complete = false;
 		int i = 0;
 		while(!complete) {
 			String currentPiece = scalePieces.get(i);
-			if(currentPiece.equals("(")) {
-				Integer matchingBracketIndex = findNext(scalePieces, ")", i);
-				if(matchingBracketIndex == null) {
+			
+			while(findNext(scalePieces, "(") != null) {
+				Integer leftBracketIndex = findNext(scalePieces, "(");
+				Integer rightBracketIndex = findNext(scalePieces, ")", leftBracketIndex);
+				if(rightBracketIndex == null) {
+					printArrayList(scalePieces);
 					throw new IllegalArgumentException("Left bracket with no successive right back found. All brackets must be paired, left to right");
 				}
-				if((matchingBracketIndex - i) > 4) {
-					throw new IllegalArgumentException("More than 3 numbers/operations found inside a bracket pair");
+				if((rightBracketIndex - i) != 4) {
+					printArrayList(scalePieces);
+					throw new IllegalArgumentException("Invalid number of values inside a bracket pair - must contain 2 integer values and an operator between");
 				}
+				
+				String[] bracketCalculation = new String[3];
+				int bcIndex = 0;
+				for(int j = leftBracketIndex+1; j < rightBracketIndex; j++) {
+					bracketCalculation[bcIndex] = scalePieces.get(j);
+					bcIndex++;
+				}
+				
+				
+				if(!bracketCalculation[1].matches("[+-/*^]")) {
+					throw new IllegalArgumentException("Second character inside of a bracket expression was not an operator");
+				}
+				else if(!(bracketCalculation[0].matches("[0-9]*") && bracketCalculation[2].matches("[0-9]*"))) {
+					throw new IllegalArgumentException("The first or last value inside a bracket pair must be an integer value. E.g \'(2+5)\'");
+				}
+				
+				int firstValue = Integer.parseInt(bracketCalculation[0]);
+				int secondValue = Integer.parseInt(bracketCalculation[2]);
+				Integer bracketResult = null;
+				switch(bracketCalculation[1]) {
+				case "+": 
+					bracketResult = firstValue + secondValue;
+				break;
+				case "-":
+					bracketResult = firstValue - secondValue;
+				break;
+				case "*":
+					bracketResult = firstValue * secondValue;
+				break;
+				case "/":
+					bracketResult = (int) Math.floor(firstValue / secondValue);
+				break;
+				case "^":
+					bracketResult = (int) Math.floor(Math.pow(firstValue, secondValue));
+				break;
+				}
+				System.out.println("br: " + bracketResult);
+				
+				scalePieces.set(leftBracketIndex, "" + bracketResult);
+				scalePieces.remove(leftBracketIndex+1);
+				
+				
+				
+				printArrayList(new ArrayList<String>(Arrays.asList(bracketCalculation)));
 				
 			}
 			
+
+			printArrayList(scalePieces);
 			i++;
 			if(i == scalePieces.size()) { i = 0; }
 			complete = true;
 		}
 		
 		
-		
-		
-		System.out.println("LB: " + leftBracketCount);
-		System.out.println("RB: " + rightBracketCount);
-		System.out.println("#: " + numberCount);
-		System.out.println("Op: " + operatorCount);
-		
-		printArrayList(scalePieces);
 		return 0;
 	}
 	
@@ -165,7 +217,7 @@ public class Tester {
 	 * 				Supports single-operator changes of n: n*, n+, n^
 	 * @param iterations The amount of test sorts to run
 	 */
-	public void test(Sort<Integer> sortProgram, int initialLength, String scale, int iterations) {
+	public void test(Sort sortProgram, int initialLength, String scale, int iterations) {
 		System.out.format("%15s%15s%n", "Size", "Time");
 		Integer[] array = genArray(initialLength);
 		for (int i = 0; i < iterations; i++) {
@@ -177,9 +229,4 @@ public class Tester {
 		}
 	}
 	
-	public static void main(String[] args) {
-		Tester t = new Tester();
-		t.parseScaleString("(n*500)^2+(30*2)", 50);
-		System.exit(0);
-	}
 }
