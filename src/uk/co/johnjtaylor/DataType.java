@@ -1,6 +1,6 @@
 package uk.co.johnjtaylor;
 
-public enum DataTypes {
+public enum DataType {
 	ARRAY,
 	LINKEDLIST,
 	DOUBLYLINKEDLIST,
