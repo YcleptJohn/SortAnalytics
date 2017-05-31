@@ -1,4 +1,4 @@
-package uk.co.johnjtaylor.arrays;
+package uk.co.johnjtaylor.sorts;
 
 import java.util.Arrays;
 
