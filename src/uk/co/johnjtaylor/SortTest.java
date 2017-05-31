@@ -2,6 +2,9 @@ package uk.co.johnjtaylor;
 
 import java.util.ArrayList;
 
+import uk.co.johnjtaylor.enums.DataStructure;
+import uk.co.johnjtaylor.enums.DataType;
+
 /**
  * Represents a Sort to be tested/during testing(i.e storing
  * SortResult objects)
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 public class SortTest {
 	private Sort sort;
 	private DataStructure dataStructure;
+	private DataType dataType;
 	private int initialSize;
 	private String scale;
 	private int iterations;
@@ -21,13 +25,15 @@ public class SortTest {
 	 * be tested
 	 * @param sort An object that extends the Sort class
 	 * @param dataStructure the structure of the data to be sorted (enum)
+	 * @param dataType the type of data to be sorted (must be comparable; DataType enum)
 	 * @param initialSize Initial input size to the sort
 	 * @param scale Scaling factor represented by a transformation of 'n'
 	 * @param iterations Number of iterations to be tested
 	 */
-	public SortTest(Sort sort, DataStructure dataStructure, int initialSize, String scale, int iterations) {
+	public SortTest(Sort sort, DataStructure dataStructure, DataType dataType, int initialSize, String scale, int iterations) {
 		this.sort = sort;
 		this.dataStructure = dataStructure;
+		this.dataType = dataType;
 		this.initialSize = initialSize;
 		this.scale = scale;
 		this.iterations = iterations;
