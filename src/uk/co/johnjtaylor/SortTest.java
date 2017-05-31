@@ -20,12 +20,14 @@ public class SortTest {
 	 * Initialise a new SortTest object to represent a sort to 
 	 * be tested
 	 * @param sort An object that extends the Sort class
+	 * @param dataStructure the structure of the data to be sorted (enum)
 	 * @param initialSize Initial input size to the sort
 	 * @param scale Scaling factor represented by a transformation of 'n'
 	 * @param iterations Number of iterations to be tested
 	 */
-	public SortTest(Sort sort, int initialSize, String scale, int iterations) {
+	public SortTest(Sort sort, DataStructure dataStructure, int initialSize, String scale, int iterations) {
 		this.sort = sort;
+		this.dataStructure = dataStructure;
 		this.initialSize = initialSize;
 		this.scale = scale;
 		this.iterations = iterations;
