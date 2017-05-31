@@ -217,7 +217,7 @@ public class Tester {
 	 * 				Supports single-operator changes of n: n*, n+, n^
 	 * @param iterations The amount of test sorts to run
 	 */
-	public void test(Sort sortProgram, int initialLength, String scale, int iterations) {
+	public void run(Sort sortProgram, int initialLength, String scale, int iterations) {
 		System.out.format("%15s%15s%n", "Size", "Time");
 		Integer[] array = genArray(initialLength);
 		for (int i = 0; i < iterations; i++) {

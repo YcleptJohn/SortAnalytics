@@ -10,7 +10,7 @@ public class Main {
 		BubbleSort<Integer> bub = new BubbleSort<>();
 		t.test(bub, 100, "ff", 5);*/
 		QuickSort<Integer> qs = new QuickSort<>();
-		t.test(qs, 1500, "2", 15);
+		t.run(qs, 1500, "2", 15);
 		System.out.println("EXEC END");
 	}
 }
