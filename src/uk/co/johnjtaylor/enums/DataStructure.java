@@ -1,4 +1,4 @@
-package uk.co.johnjtaylor;
+package uk.co.johnjtaylor.enums;
 
 public enum DataStructure {
 	ARRAY,
