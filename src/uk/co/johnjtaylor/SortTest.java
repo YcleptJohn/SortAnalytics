@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class SortTest {
 	private Sort sort;
+	private DataStructure dataStructure;
 	private int initialSize;
 	private String scale;
 	private int iterations;
@@ -31,6 +32,13 @@ public class SortTest {
 		results = new ArrayList<>();
 	}
 	
+	/**
+	 * @return the dataStructure of the sort data
+	 */
+	public DataStructure getDataStructure() {
+		return dataStructure;
+	}
+
 	/**
 	 * Add a new result to the current list of results
 	 * @param newResult
