@@ -20,7 +20,7 @@ public class DataGenerator<T extends Comparable<T>> {
 		rand.setSeed(System.currentTimeMillis());
 	}
 	
-	private int getInt() {
+	private Integer getInt() {
 		return rand.nextInt();
 	}
 	
@@ -44,7 +44,37 @@ public class DataGenerator<T extends Comparable<T>> {
 	 * @return an array of the random data per the size/type given
 	 */
 	public T[] makeArray(int size, DataType type) {
-		return null;
+		T[] array = null;
+		switch(type) {
+		case INTEGER:
+			array = (T[]) new Integer[size];
+			break;
+		case FLOAT:
+			break;
+		case LONG:
+			break;
+		case STRING:
+			array = (T[]) new String[size];
+			break;
+		}
+		
+		for(int i=0; i < size; i++) {
+			T newEntry = null;
+			switch(type) {
+			case INTEGER:
+				newEntry = (T) getInt();
+				break;
+			case FLOAT:
+				break;
+			case LONG:
+				break;
+			case STRING:
+				newEntry = (T) getString(DEFAULT_MAX_STRING);
+				break;
+			}
+			array[i] = (T) newEntry;
+		}
+		return array;
 	}
 	
 	
