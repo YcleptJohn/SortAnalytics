@@ -16,7 +16,12 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 	 * Takes an array of any comparable type and sorts it
 	 * @param array The array the be sorted
 	 */
-	public T[] sortArray(T[] array) {
+	public Object sort(Object input) {
+		T[] array = null;
+		if(input instanceof Comparable<?>[]) {
+			array = (T[]) input;
+		}
+		
 	    int swaps;
 		do {
 		    swaps = 0;

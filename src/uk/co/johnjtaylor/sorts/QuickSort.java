@@ -7,7 +7,12 @@ import uk.co.johnjtaylor.Sort;
 public class QuickSort<T extends Comparable<T>> extends Sort<Integer> {
 
 	@Override
-	public Integer[] sortArray(Integer[] array) {
+	public Object sort(Object input) {
+		Integer[] array = null;
+		if(input instanceof Comparable<?>[]) {
+			array = (Integer[]) input;
+		}
+		
 		Integer[] result = qSort(array, 0, array.length-1);
 		return result;
 	}
