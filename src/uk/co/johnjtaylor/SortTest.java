@@ -46,6 +46,13 @@ public class SortTest {
 	public DataStructure getDataStructure() {
 		return dataStructure;
 	}
+	
+	/**
+	 * @return the dataType of the sort
+	 */
+	public DataType getDataType() {
+		return dataType;
+	}
 
 	/**
 	 * Add a new result to the current list of results
