@@ -4,10 +4,6 @@ import java.util.Arrays;
 
 public abstract class Sort<T extends Comparable<T>> {
 	
-	abstract public T[] sortArray(T[] array);
+	abstract public Object sort(Object inputData);
 	
-    public void printArray(T[] array) {
-        System.out.println(Arrays.toString(array));
-    }
-    
 }
