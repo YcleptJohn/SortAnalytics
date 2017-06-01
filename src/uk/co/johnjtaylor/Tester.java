@@ -8,10 +8,12 @@ import java.util.Random;
 public class Tester {
 	private Random rand;
 	private Time timer;
+	private DataGenerator gen;
 	
 	public Tester() {
 		rand = new Random();
 		timer = new Time();
+		gen = new DataGenerator();
 	}
 	
 	/**
@@ -209,16 +211,28 @@ public class Tester {
 	/**
 	 * Runs and times a sorting algorithm 
 	 * 
-	 * @param sortProgram A sorting object to be used to sort the array
-	 * @param initialLength The initial length of the array used for testing (first iteration length)
-	 * @param scale The factor of which to scale the length of the test array based on "n".
-	 * 				Where "n" is the current iteration's length. E.g "n*2" with an initial 
-	 * 				iteration length of 100 would be 200, then 400, then 800 etc. 
-	 * 				Supports single-operator changes of n: n*, n+, n^
-	 * @param iterations The amount of test sorts to run
+	 * @param test A SortTest object to be tested as specified
 	 */
-	public void run(Sort sortProgram, int initialLength, String scale, int iterations) {
-		System.out.format("%15s%15s%n", "Size", "Time");
+	public ArrayList<SortResult> run(SortTest test) {
+		//TODO throw events to be handled for data printouts etc @ start; sort finish; overall end etc
+		switch(test.getDataStructure()) {
+		case ARRAY:
+			Comparable[] array = gen.makeArray(test.getInitialSize(), test.getDataType());
+			for(int i = 0; i < test.getIterations(); i++) {
+				timer.start();
+				test.getSort().sort(array);
+				timer.stop();
+				test.addResult(new SortResult(timer.getTime(), "ms", array.length, test.getDataType(), test.getDataStructure(), true));
+				System.out.println("Result stored");
+				array = gen.makeArray(array.length * 2, test.getDataType());
+			}
+			break;
+		default:
+			System.out.println("Implementation pending for " + test.getDataType().toString());
+		}
+		return test.getAllResults();
+		
+		/*System.out.format("%15s%15s%n", "Size", "Time");
 		Integer[] array = genArray(initialLength);
 		for (int i = 0; i < iterations; i++) {
 			timer.start();
@@ -226,7 +240,7 @@ public class Tester {
 			timer.stop();
 			System.out.format("%15s%15s%n", array.length, timer.getTime() + "ms");
 			array = genArray(array.length * 2);
-		}
+		}*/
 	}
 	
 }
