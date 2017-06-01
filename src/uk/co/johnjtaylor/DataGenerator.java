@@ -51,6 +51,7 @@ public class DataGenerator<T extends Comparable<T>> {
 	 * @param type type of the data (enum)
 	 * @return an array of the random data per the size/type given
 	 */
+	@SuppressWarnings("unchecked") // All casts are checked via 'DataType'; unneeded
 	public T[] makeArray(int size, DataType type) {
 		T[] array = null;
 		switch(type) {
@@ -97,7 +98,34 @@ public class DataGenerator<T extends Comparable<T>> {
 	 * @param type data type of values (enum)
 	 * @return
 	 */
-	public LinkedListNode makeLinkedList(int size, DataType type) {
-		return null;
+	@SuppressWarnings("unchecked") // Already checked via DataType enum
+	public LinkedListNode<T> makeLinkedList(int size, DataType type) {
+		LinkedListNode<T> head = null;
+		LinkedListNode<T> prev = null;
+		for(int i=0; i < size; i++) {
+			LinkedListNode<T> newNode = null;
+			switch(type) {
+			case INTEGER:
+				newNode = new LinkedListNode<T>((T) getInt(), null);
+				break;
+			case FLOAT:
+				newNode = new LinkedListNode<T>((T) getFloat(), null);
+				break;
+			case LONG:
+				newNode = new LinkedListNode<T>((T) getLong(), null);
+				break;
+			case STRING:
+				newNode = new LinkedListNode<T>((T) getString(DEFAULT_MAX_STRING), null);
+				break;
+			}
+			if(i == 0) {
+				head = newNode;
+				prev = newNode;
+			} else {
+				prev.setNext(newNode);
+				prev = newNode;
+			}
+		}
+		return head;
 	}
 }
