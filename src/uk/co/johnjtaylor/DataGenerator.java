@@ -24,6 +24,14 @@ public class DataGenerator<T extends Comparable<T>> {
 		return rand.nextInt();
 	}
 	
+	private Float getFloat() {
+		return rand.nextFloat();
+	}
+	
+	private Long getLong() {
+		return rand.nextLong();
+	}
+	
 	private String getString(int maxLength) {
 		int strLength = rand.nextInt(maxLength);
 		String generatedString = "";
@@ -50,8 +58,10 @@ public class DataGenerator<T extends Comparable<T>> {
 			array = (T[]) new Integer[size];
 			break;
 		case FLOAT:
+			array = (T[]) new Float[size];
 			break;
 		case LONG:
+			array = (T[]) new Long[size];
 			break;
 		case STRING:
 			array = (T[]) new String[size];
@@ -65,8 +75,10 @@ public class DataGenerator<T extends Comparable<T>> {
 				newEntry = (T) getInt();
 				break;
 			case FLOAT:
+				newEntry = (T) getFloat();
 				break;
 			case LONG:
+				newEntry = (T) getLong();
 				break;
 			case STRING:
 				newEntry = (T) getString(DEFAULT_MAX_STRING);
