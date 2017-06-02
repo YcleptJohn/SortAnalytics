@@ -1,7 +1,5 @@
 package uk.co.johnjtaylor.sorts;
 
-import java.util.Arrays;
-
 import uk.co.johnjtaylor.Sort;
 
 public class QuickSort<T extends Comparable<T>> extends Sort<Integer> {
@@ -15,22 +13,6 @@ public class QuickSort<T extends Comparable<T>> extends Sort<Integer> {
 		
 		Integer[] result = qSort(array, 0, array.length-1);
 		return result;
-	}
-	
-	public void confirmSorted(Integer[] array) {
-		boolean sorted = true;
-		Integer last = Integer.MIN_VALUE;
-		for(int i=0; i < array.length; i++) {
-			if(array[i] >= last) {
-				last = array[i];
-			} else {
-				sorted = false;
-				System.out.println("INVALID SORT");
-			}
-		}
-		if(sorted) {
-			System.out.println("SORT VALID");
-		}
 	}
 	
 
