@@ -13,7 +13,7 @@ import uk.co.johnjtaylor.structures.LinkedListNode;
  */
 public class DataGenerator<T extends Comparable<T>> {
 	private Random rand;
-	private static final int DEFAULT_MAX_STRING = 350;
+	private static final int DEFAULT_MAX_STRING = 10;
 	
 	public DataGenerator() {
 		rand = new Random();
@@ -36,8 +36,16 @@ public class DataGenerator<T extends Comparable<T>> {
 		int strLength = rand.nextInt(maxLength);
 		String generatedString = "";
 		for(int i = 0; i <= strLength; i++) {
-			int asciiIndex = rand.nextInt(127);
-			char character = (char) asciiIndex;
+			char character;
+			int lowAsciiIndex = rand.nextInt((90-65) + 1) + 65;
+			int highAsciiIndex = rand.nextInt((122-97) + 1) + 97;
+			boolean selector = rand.nextBoolean();
+			if(selector) {
+				character = (char) lowAsciiIndex;
+			} else {
+				character = (char) highAsciiIndex;
+			}
+				
 			generatedString += character;
 		}
 		return generatedString;
