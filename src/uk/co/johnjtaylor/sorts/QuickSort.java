@@ -6,39 +6,39 @@ public class QuickSort<T extends Comparable<T>> extends Sort<Integer> {
 
 	@Override
 	public Object sort(Object input) {
-		Integer[] array = null;
+		T[] array = null;
 		if(input instanceof Comparable<?>[]) {
-			array = (Integer[]) input;
+			array = (T[]) input;
 		}
 		
-		Integer[] result = qSort(array, 0, array.length-1);
+		T[] result = qSort(array, 0, array.length-1);
 		return result;
 	}
 	
 
-	public Integer[] qSort(Integer[] array, int lo, int hi) {
-		int pivotVal = array[lo];
-		int left = lo;
-		int right = hi;
+	public T[] qSort(T[] array, int lo, int hi) {
+		T pivotVal = array[lo];
+		Integer left = lo;
+		Integer right = hi;
 		while(left <= right) {
-			while(array[left] < pivotVal) {
+			while(array[left].compareTo(pivotVal) < 0) {
 				left++;
 			}
-			while(array[right] > pivotVal) {
+			while(array[right].compareTo(pivotVal) > 0) {
 				right--;
 			}
-			if(left <= right) {
-				Integer temp = array[left];
+			if(left.compareTo(right) <= 0) {
+				T temp = array[left];
 				array[left] = array[right];
 				array[right] = temp;
 				left++;
 				right--;
 			}
 		}
-		if(right > lo) {
+		if(right.compareTo(lo) > 0) {
 			qSort(array, lo, right);
 		}
-		if(left < hi) {
+		if(left.compareTo(hi) < 0) {
 			qSort(array, left, hi);
 		}
 		
