@@ -9,6 +9,8 @@ public class QuickSort<T extends Comparable<T>> extends Sort<Integer> {
 		T[] array = null;
 		if(input instanceof Comparable<?>[]) {
 			array = (T[]) input;
+		} else {
+			throw new UnsupportedOperationException(this.getClass().getName() + " does not support non-array sorts in this version");
 		}
 		
 		T[] result = qSort(array, 0, array.length-1);
