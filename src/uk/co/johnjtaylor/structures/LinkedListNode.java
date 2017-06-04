@@ -22,6 +22,14 @@ public class LinkedListNode<T extends Comparable<T>> {
 	}
 	
 	/**
+	 * Set the value of a LinkedListNode @ runtime
+	 * @param val new Value to be set
+	 */
+	public void setValue(T val) {
+		this.value = val;
+	}
+	
+	/**
 	 * @return the nextNode
 	 */
 	public LinkedListNode<T> getNextNode() {
