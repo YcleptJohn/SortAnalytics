@@ -3,6 +3,7 @@ package uk.co.johnjtaylor.sorts;
 import java.util.Arrays;
 
 import uk.co.johnjtaylor.Sort;
+import uk.co.johnjtaylor.structures.LinkedListNode;
 
 /**
  * A Simple bubblesort class used as an easy base-line for algorithm testing
@@ -17,25 +18,54 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 	 * @param array The array the be sorted
 	 */
 	public Object sort(Object input) {
-		T[] array = null;
 		if(input instanceof Comparable<?>[]) {
-			array = (T[]) input;
+			T[] inArray = (T[]) input;
+			return bubbleSortArray(inArray);
 		}
-		
-	    int swaps;
+		else if(input instanceof LinkedListNode<?>) {
+			return bubbleSortLinkedList(input);
+		}
+		else {
+			throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support sorts for this data structure(" + input.getClass().getSimpleName() + ")");
+		}
+	}
+	
+	public Object bubbleSortArray(T[] array) {
+		 int swaps;
+			do {
+			    swaps = 0;
+				for(int i = 0; i < array.length-1; i++) {
+					if(array[i].compareTo(array[i+1]) > 0) {
+						T temp = array[i+1];
+						array[i+1] = array[i];
+						array[i] = temp;
+						swaps++;
+					}
+				}
+			} while (swaps > 0);
+			System.out.println(Arrays.deepToString(array));
+			return array;
+	}
+	
+	public Object bubbleSortLinkedList(Object input) {
+		LinkedListNode<T> head = (LinkedListNode<T>) input;
+		LinkedListNode<T> curr = head;
+		int swaps;
 		do {
-		    swaps = 0;
-			for(int i = 0; i < array.length-1; i++) {
-				if(array[i].compareTo(array[i+1]) > 0) {
-					T temp = array[i+1];
-					array[i+1] = array[i];
-					array[i] = temp;
+			swaps = 0;
+			while(curr.getNextNode() != null) {
+				LinkedListNode<T> next = curr.getNextNode();
+				if(curr.getValue().compareTo(next.getValue()) > 0) {
+					T currValue = curr.getValue();
+					curr.setValue(next.getValue());
+					next.setValue(currValue);
 					swaps++;
 				}
+				curr = curr.getNextNode();
 			}
-		} while (swaps > 0);
-		System.out.println(Arrays.deepToString(array));;
-		return array;
+			curr = head;
+		} while(swaps > 0);
+		return head;
 	}
 
 }
