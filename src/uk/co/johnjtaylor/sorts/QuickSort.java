@@ -21,12 +21,23 @@ public class QuickSort<T extends Comparable<T>> extends Sort<Integer> {
 		Integer left = lo;
 		Integer right = hi;
 		while(left <= right) {
-			while(array[left].compareTo(pivotVal) < 0) {
-				left++;
+			if(array instanceof String[]) { // Current array is Strings
+				while(((String) array[left]).compareToIgnoreCase((String) pivotVal) < 0) {
+					left++;
+				}
+				while(((String)array[right]).compareToIgnoreCase((String) pivotVal) > 0) {
+					right--;
+				}
 			}
-			while(array[right].compareTo(pivotVal) > 0) {
-				right--;
+			else { // Current array is NOT Strings
+				while(array[left].compareTo(pivotVal) < 0) {
+					left++;
+				}
+				while(array[right].compareTo(pivotVal) > 0) {
+					right--;
+				}
 			}
+			
 			if(left.compareTo(right) <= 0) {
 				T temp = array[left];
 				array[left] = array[right];
