@@ -220,27 +220,18 @@ public class Tester {
 			Comparable[] array = gen.makeArray(test.getInitialSize(), test.getDataType());
 			for(int i = 0; i < test.getIterations(); i++) {
 				timer.start();
-				test.getSort().sort(array);
+				Object res = test.getSort().sort(array);
 				timer.stop();
 				test.addResult(new SortResult(timer.getTime(), "ms", array.length, test.getDataType(), test.getDataStructure(), true));
 				System.out.println("Result stored");
+				
 				array = gen.makeArray(array.length * 2, test.getDataType());
 			}
 			break;
 		default:
-			System.out.println("Implementation pending for " + test.getDataType().toString());
+			System.out.println("Implementation pending for " + test.getDataStructure().toString());
 		}
 		return test.getAllResults();
-		
-		/*System.out.format("%15s%15s%n", "Size", "Time");
-		Integer[] array = genArray(initialLength);
-		for (int i = 0; i < iterations; i++) {
-			timer.start();
-			sortProgram.sortArray(array);
-			timer.stop();
-			System.out.format("%15s%15s%n", array.length, timer.getTime() + "ms");
-			array = genArray(array.length * 2);
-		}*/
 	}
 	
 }
