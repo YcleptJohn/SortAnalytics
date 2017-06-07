@@ -51,16 +51,18 @@ public class LinkedListNode<T extends Comparable<T>> extends DataStructures<T> {
 		if(!(inputData instanceof LinkedListNode)) {
 			throw new IllegalArgumentException("Linked List Node toArray() only accepts Linked List Nodes as input");
 		}
-		
 		LinkedListNode<T> node = (LinkedListNode<T>) inputData;
 		ArrayList<T> nodeList = new ArrayList<T>();
 		while(node != null) {
 			nodeList.add(node.getValue());
 			node = node.getNextNode();
 		}
+		Comparable<?>[] nodeArray = new Comparable<?>[nodeList.size()];
+		nodeList.toArray(nodeArray);
 		
-		return (T[]) nodeList.toArray();
+		return (T[]) nodeArray;
 	}
+	
 	
 	
 }
