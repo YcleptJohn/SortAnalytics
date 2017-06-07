@@ -1,6 +1,7 @@
 package uk.co.johnjtaylor;
 
 import java.util.ArrayList;
+import uk.co.johnjtaylor.enums.DataStructure;
 
 public class Tester<T extends Comparable<T>> {
 	private Time timer;
@@ -38,6 +39,12 @@ public class Tester<T extends Comparable<T>> {
 			System.out.println("Implementation pending for " + test.getDataStructure().toString());
 		}
 		return test.getAllResults();
+	}
+	
+	
+	public boolean validateSort(Object sortedValues, DataStructure ds) {
+		
+		return false;
 	}
 	
 }
