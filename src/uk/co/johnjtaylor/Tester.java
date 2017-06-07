@@ -5,10 +5,13 @@ import java.util.ArrayList;
 public class Tester<T extends Comparable<T>> {
 	private Time timer;
 	private DataGenerator<T> gen;
+	@SuppressWarnings("unused")
+	private ScaleParser parser;
 	
 	public Tester() {
 		timer = new Time();
 		gen = new DataGenerator<T>();
+		parser = new ScaleParser();
 	}
 	
 	/**
