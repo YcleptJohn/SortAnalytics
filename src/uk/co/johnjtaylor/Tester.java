@@ -1,28 +1,15 @@
 package uk.co.johnjtaylor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Random;
 
-public class Tester {
-	private Random rand;
+public class Tester<T extends Comparable<T>> {
 	private Time timer;
-	private DataGenerator gen;
+	private DataGenerator<T> gen;
 	
 	public Tester() {
-		rand = new Random();
 		timer = new Time();
-		gen = new DataGenerator();
+		gen = new DataGenerator<T>();
 	}
-	
-	
-	
-	
-	
-	
-	
-
 	
 	/**
 	 * Runs and times a sorting algorithm 
@@ -33,10 +20,10 @@ public class Tester {
 		//TODO throw events to be handled for data printouts etc @ start; sort finish; overall end etc
 		switch(test.getDataStructure()) {
 		case ARRAY:
-			Comparable[] array = gen.makeArray(test.getInitialSize(), test.getDataType());
+			T[] array = gen.makeArray(test.getInitialSize(), test.getDataType());
 			for(int i = 0; i < test.getIterations(); i++) {
 				timer.start();
-				Object res = test.getSort().sort(array);
+				//Object res = test.getSort().sort(array);
 				timer.stop();
 				test.addResult(new SortResult(timer.getTime(), "ms", array.length, test.getDataType(), test.getDataStructure(), true));
 				System.out.println("Result stored");
