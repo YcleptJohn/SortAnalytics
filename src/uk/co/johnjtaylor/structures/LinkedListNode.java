@@ -1,6 +1,8 @@
 package uk.co.johnjtaylor.structures;
 
-public class LinkedListNode<T extends Comparable<T>> {
+import java.util.ArrayList;
+
+public class LinkedListNode<T extends Comparable<T>> extends DataStructure<T> {
 	private T value;
 	private LinkedListNode<T> nextNode;
 	
@@ -41,6 +43,23 @@ public class LinkedListNode<T extends Comparable<T>> {
 	 */
 	public void setNext(LinkedListNode<T> newNext) {
 		this.nextNode = newNext;
+	}
+
+	@SuppressWarnings("unchecked") // It is checked reversely
+	@Override
+	public T[] toArray(Object inputData) {
+		if(!(inputData instanceof LinkedListNode)) {
+			throw new IllegalArgumentException("Linked List Node toArray() only accepts Linked List Nodes as input");
+		}
+		
+		LinkedListNode<T> node = (LinkedListNode<T>) inputData;
+		ArrayList<T> nodeList = new ArrayList<T>();
+		while(node != null) {
+			nodeList.add(node.getValue());
+			node = node.getNextNode();
+		}
+		
+		return (T[]) nodeList.toArray();
 	}
 	
 	
