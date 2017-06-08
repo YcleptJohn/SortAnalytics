@@ -2,7 +2,7 @@ package uk.co.johnjtaylor.structures;
 
 import java.util.ArrayList;
 
-public class LinkedListNode<T extends Comparable<T>> extends DataStructure<T> {
+public class LinkedListNode<T extends Comparable<T>> extends DataStructures<T> {
 	private T value;
 	private LinkedListNode<T> nextNode;
 	
