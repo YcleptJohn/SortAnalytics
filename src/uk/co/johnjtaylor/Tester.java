@@ -2,6 +2,7 @@ package uk.co.johnjtaylor;
 
 import java.util.ArrayList;
 import uk.co.johnjtaylor.enums.DataStructure;
+import uk.co.johnjtaylor.structures.DataStructures;
 
 public class Tester<T extends Comparable<T>> {
 	private Time timer;
@@ -42,9 +43,30 @@ public class Tester<T extends Comparable<T>> {
 	}
 	
 	
-	public boolean validateSort(Object sortedValues, DataStructure ds) {
+	/**
+	 * Validates that a sorting algorithm produced correct results
+	 * @param values Any array/custom data structure that implements toArray()
+	 * @return true if the sort is valid; false otherwise
+	 * @throws UnsupportedOperationException when the values given couldn't be converted to an array
+	 */
+	public boolean validateSort(Object values) {
+		if(values instanceof DataStructures<?>) {
+			@SuppressWarnings("unchecked") // Checked as best as possible, can't do a <T> check though so
+			DataStructures<T> valueStructure = (DataStructures<T>) values;
+			values = valueStructure.toArray(values);
+		}
 		
-		return false;
+		if(values instanceof Comparable<?>[]) {
+			T[] valuesToCheck  = (T[]) values;
+			for(int i=1; i < valuesToCheck.length; i++) {
+				if(valuesToCheck[i-1].compareTo(valuesToCheck[i]) > 0) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			throw new UnsupportedOperationException("The given data couldn't be converted to an array for processing");
+		}
 	}
 	
 }
