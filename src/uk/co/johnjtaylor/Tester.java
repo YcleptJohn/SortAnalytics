@@ -3,6 +3,7 @@ package uk.co.johnjtaylor;
 import java.util.ArrayList;
 import uk.co.johnjtaylor.enums.DataStructure;
 import uk.co.johnjtaylor.structures.DataStructures;
+import uk.co.johnjtaylor.structures.LinkedListNode;
 
 public class Tester<T extends Comparable<T>> {
 	private Time timer;
@@ -28,12 +29,25 @@ public class Tester<T extends Comparable<T>> {
 			T[] array = gen.makeArray(test.getInitialSize(), test.getDataType());
 			for(int i = 0; i < test.getIterations(); i++) {
 				timer.start();
-				//Object res = test.getSort().sort(array);
+				Object res = test.getSort().sort(array);
 				timer.stop();
 				test.addResult(new SortResult(timer.getTime(), "ms", array.length, test.getDataType(), test.getDataStructure(), true));
 				System.out.println("Result stored");
 				
 				array = gen.makeArray(array.length * 2, test.getDataType());
+			}
+			break;
+		case LINKEDLIST:
+			LinkedListNode<T> head = gen.makeLinkedList(test.getInitialSize(), test.getDataType());
+			int currentLength = test.getInitialSize();
+			for(int i = 0; i < test.getIterations(); i++) {
+				timer.start();
+				Object result = test.getSort().sort(head);
+				timer.stop();
+				test.addResult(new SortResult(timer.getTime(), "ms", currentLength, test.getDataType(), test.getDataStructure(), true));
+				currentLength *= 2;
+				
+				head = gen.makeLinkedList(currentLength, test.getDataType());
 			}
 			break;
 		default:
