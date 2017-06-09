@@ -29,11 +29,22 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 			throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support sorts for this data structure(" + input.getClass().getSimpleName() + ")");
 		}
 	}
-	
+
 	public Object bubbleSortArray(T[] array) {
-		 int swaps;
-			do {
-			    swaps = 0;
+		int swaps;
+		do {
+			swaps = 0;
+			if(array instanceof String[]) { // Strings; need ignoreCase comparison
+				String[] strArray = (String[]) array;
+				for(int i = 0; i < strArray.length-1; i++) {
+					if(strArray[i].compareToIgnoreCase(strArray[i+1]) > 0) {
+						String temp = strArray[i+1];
+						strArray[i+1] = strArray[i];
+						strArray[i] = temp;
+						swaps++;
+					}
+				}
+			} else { // Other comparable type
 				for(int i = 0; i < array.length-1; i++) {
 					if(array[i].compareTo(array[i+1]) > 0) {
 						T temp = array[i+1];
@@ -42,11 +53,12 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 						swaps++;
 					}
 				}
-			} while (swaps > 0);
-			System.out.println(Arrays.deepToString(array));
-			return array;
+			}
+		} while (swaps > 0);
+		System.out.println(Arrays.deepToString(array));
+		return array;
 	}
-	
+
 	public Object bubbleSortLinkedList(Object input) {
 		LinkedListNode<T> head = (LinkedListNode<T>) input;
 		LinkedListNode<T> curr = head;
