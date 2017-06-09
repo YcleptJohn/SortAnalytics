@@ -70,7 +70,16 @@ public class Tester<T extends Comparable<T>> {
 			values = valueStructure.toArray(values);
 		}
 		
-		if(values instanceof Comparable<?>[]) {
+		if(values instanceof String[]) {
+			String[] valuesToCheck = (String[]) values;
+			for(int i=1; i < valuesToCheck.length; i++) {
+				if(valuesToCheck[i-1].compareToIgnoreCase(valuesToCheck[i]) > 0) {
+					return false;
+				}
+			}
+			return true;
+		}
+		else if(values instanceof Comparable<?>[]) {
 			T[] valuesToCheck  = (T[]) values;
 			for(int i=1; i < valuesToCheck.length; i++) {
 				if(valuesToCheck[i-1].compareTo(valuesToCheck[i]) > 0) {
