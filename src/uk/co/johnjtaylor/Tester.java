@@ -32,7 +32,6 @@ public class Tester<T extends Comparable<T>> {
 				Object res = test.getSort().sort(array);
 				timer.stop();
 				test.addResult(new SortResult(timer.getTime(), "ms", array.length, test.getDataType(), test.getDataStructure(), true));
-				System.out.println("Result stored");
 				
 				array = gen.makeArray(array.length * 2, test.getDataType());
 			}

@@ -55,7 +55,6 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 				}
 			}
 		} while (swaps > 0);
-		System.out.println(Arrays.deepToString(array));
 		return array;
 	}
 
