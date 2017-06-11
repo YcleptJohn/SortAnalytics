@@ -1,7 +1,6 @@
 package uk.co.johnjtaylor;
 
 import java.util.ArrayList;
-import uk.co.johnjtaylor.enums.DataStructure;
 import uk.co.johnjtaylor.structures.DataStructures;
 import uk.co.johnjtaylor.structures.LinkedListNode;
 
@@ -50,7 +49,7 @@ public class Tester<T extends Comparable<T>> {
 			}
 			break;
 		default:
-			System.out.println("Implementation pending for " + test.getDataStructure().toString());
+			throw new UnsupportedOperationException("Implementation pending for " + test.getDataStructure().toString());
 		}
 		return test.getAllResults();
 	}
