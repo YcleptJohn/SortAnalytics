@@ -7,6 +7,19 @@ public enum EventImportance {
 	HIGH(4),
 	CRITICAL(5);
 	
+	private int rank;
 	
+	private EventImportance(int rank) {
+		this.rank = rank;
+	}
+	
+	/**
+	 * Returns the ranking for this EventImportance
+	 * (Higher ranking = more significant event)
+	 * @return
+	 */
+	public int getRank() {
+		return rank;
+	}
 	
 }
