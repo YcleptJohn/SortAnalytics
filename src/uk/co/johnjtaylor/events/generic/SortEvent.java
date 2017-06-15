@@ -20,9 +20,4 @@ public abstract class SortEvent extends Event {
 	public SortEvent(Object source, EventType type, EventImportance importance) {
 		super(source, type, importance);
 	}
-
-	/**
-	 * @return A string representing the name of this event instance
-	 */
-	public abstract String getEventName();
 }

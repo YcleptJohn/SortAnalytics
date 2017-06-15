@@ -43,8 +43,10 @@ public abstract class Event extends EventObject {
 	}
 	
 	/**
-	 * @return A string representing the name of this event instance
+	 * @return The name of the event that occurred (class name of event)
 	 */
-	public abstract String getEventName();
+	public String getEventName() {
+		return this.getClass().getSimpleName();
+	}
 	
 }

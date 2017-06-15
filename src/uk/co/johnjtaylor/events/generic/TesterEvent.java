@@ -20,10 +20,4 @@ public abstract class TesterEvent extends Event {
 	public TesterEvent(Object source, EventType type, EventImportance importance) {
 		super(source, type, importance);
 	}
-	
-	/**
-	 * @return A string representing the name of this event instance
-	 */
-	public abstract String getEventName();
-
 }
