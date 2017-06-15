@@ -19,4 +19,6 @@ public class BubbleSortStartEvent extends SortEvent {
 	public BubbleSortStartEvent(Object source) {
 		super(source, TYPE, IMPORTANCE);
 	}
+	
+	//TODO: store basic information about initial dataset; size/type etc 
 }

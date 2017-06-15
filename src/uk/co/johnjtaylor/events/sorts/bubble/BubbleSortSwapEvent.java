@@ -22,4 +22,6 @@ public class BubbleSortSwapEvent extends SortEvent {
 		super(source, TYPE, IMPORTANCE);
 	}
 
+	
+	//TODO: store the values (or indexes) swapped and potentially a pre/post representation of the entire datasets
 }

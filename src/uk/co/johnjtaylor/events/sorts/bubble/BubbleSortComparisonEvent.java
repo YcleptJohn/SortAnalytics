@@ -21,4 +21,8 @@ public class BubbleSortComparisonEvent extends Event {
 	public BubbleSortComparisonEvent(Object source) {
 		super(source, TYPE, IMPORTANCE);
 	}
+	
+	
+	//TODO: Constructor takes 2 values (or indexes) that are being compared)
+	//TODO: values are stored as part of the event's data
 }
