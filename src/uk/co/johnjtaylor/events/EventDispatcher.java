@@ -31,9 +31,21 @@ public class EventDispatcher {
 	 * @param listener The event handler/listener to be attached to the given event type
 	 */
 	public synchronized void registerListener(EventType event, Listener listener) {
-		ListenerList listeners = eventListeners.get(event);
-		listeners.add(listener); // Update current ListenerList
+		ListenerList currentlisteners = eventListeners.get(event);
+		currentlisteners.add(listener); // Update current ListenerList
 		eventListeners.remove(event);
-		eventListeners.put(event, listeners);
+		eventListeners.put(event, currentlisteners);
+	}
+	
+	/**
+	 * Remove a registered listener from a particular set of events
+	 * @param event The event that the target listener is attached to
+	 * @param listener The target listener to be removed from this event
+	 */
+	public synchronized void unregisterListener(EventType event, Listener listener) {
+		ListenerList currentListeners = eventListeners.get(event);
+		currentListeners.remove(listener);
+		eventListeners.remove(event);
+		eventListeners.put(event, currentListeners);
 	}
 }
