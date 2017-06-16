@@ -2,6 +2,7 @@ package uk.co.johnjtaylor.events;
 
 import java.util.HashMap;
 
+import uk.co.johnjtaylor.events.generic.Event;
 import uk.co.johnjtaylor.events.listeners.Listener;
 import uk.co.johnjtaylor.events.listeners.ListenerList;
 /**
@@ -47,5 +48,11 @@ public class EventDispatcher {
 		currentListeners.remove(listener);
 		eventListeners.remove(event);
 		eventListeners.put(event, currentListeners);
+	}
+	
+	private void dispatch(Event event) {
+		for(Listener currListener : eventListeners.get(event.getEventType())) {
+			event.getEventType().invoke(event, currListener);
+		}
 	}
 }
