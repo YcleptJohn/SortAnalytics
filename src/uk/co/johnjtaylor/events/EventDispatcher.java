@@ -15,12 +15,12 @@ public class EventDispatcher {
 	private static HashMap<EventType, ListenerList> eventListeners = new HashMap<>();
 	
 	/**
-	 * EventDispatcher Constructor;
+	 * EventDispatcher eventListener list construction;
 	 * Populates the eventListeners HashMap with every possible
 	 * event having an empty list of listeners (ListenerList) 
 	 * associated with it. 
 	 */
-	public EventDispatcher() {
+	public static void prepareEventListenerRegister() {
 		for(EventType evtType : EventType.values()) {
 			eventListeners.put(evtType, new ListenerList());
 		}
@@ -50,7 +50,7 @@ public class EventDispatcher {
 		eventListeners.put(event, currentListeners);
 	}
 	
-	public static void requestInvoke(Event e) {
+	public static synchronized void requestInvoke(Event e) {
 		dispatch(e);
 	}
 	
@@ -58,7 +58,7 @@ public class EventDispatcher {
 	 * Handles the dispatching of events to all appropriate listeners
 	 * @param event the event to dispatch
 	 */
-	private static void dispatch(Event event) {
+	private static synchronized void dispatch(Event event) {
 		for(Listener currListener : eventListeners.get(event.getEventType())) {
 			event.getEventType().invoke(event, currListener);
 		}
