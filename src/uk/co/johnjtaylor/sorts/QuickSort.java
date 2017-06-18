@@ -1,24 +1,26 @@
 package uk.co.johnjtaylor.sorts;
 
 import uk.co.johnjtaylor.Sort;
+import uk.co.johnjtaylor.Time;
 
 public class QuickSort<T extends Comparable<T>> extends Sort<Integer> {
 
 	@Override
-	public Object sort(Object input) {
+	public Object sort(Object input, Time timer) {
 		T[] array = null;
 		if(input instanceof Comparable<?>[]) {
 			array = (T[]) input;
 		} else {
 			throw new UnsupportedOperationException(this.getClass().getName() + " does not support non-array sorts in this version");
 		}
-		
-		T[] result = qSort(array, 0, array.length-1);
+		timer.start();
+		T[] result = qSort(array, 0, array.length-1, timer);
+		timer.stop();
 		return result;
 	}
 	
 
-	public T[] qSort(T[] array, int lo, int hi) {
+	public T[] qSort(T[] array, int lo, int hi, Time timer) {
 		T pivotVal = array[lo];
 		Integer left = lo;
 		Integer right = hi;
@@ -49,10 +51,10 @@ public class QuickSort<T extends Comparable<T>> extends Sort<Integer> {
 			}
 		}
 		if(right.compareTo(lo) > 0) {
-			qSort(array, lo, right);
+			qSort(array, lo, right, timer);
 		}
 		if(left.compareTo(hi) < 0) {
-			qSort(array, left, hi);
+			qSort(array, left, hi, timer);
 		}
 		
 		return array;
