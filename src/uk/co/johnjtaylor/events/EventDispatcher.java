@@ -50,6 +50,14 @@ public class EventDispatcher {
 		eventListeners.put(event, currentListeners);
 	}
 	
+	public void requestInvoke(Event e) {
+		dispatch(e);
+	}
+	
+	/**
+	 * Handles the dispatching of events to all appropriate listeners
+	 * @param event the event to dispatch
+	 */
 	private void dispatch(Event event) {
 		for(Listener currListener : eventListeners.get(event.getEventType())) {
 			event.getEventType().invoke(event, currListener);
