@@ -3,6 +3,7 @@ package uk.co.johnjtaylor.sorts;
 import java.util.Arrays;
 
 import uk.co.johnjtaylor.Sort;
+import uk.co.johnjtaylor.Time;
 import uk.co.johnjtaylor.structures.LinkedListNode;
 
 /**
@@ -17,20 +18,21 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 	 * Takes an array of any comparable type and sorts it
 	 * @param array The array the be sorted
 	 */
-	public Object sort(Object input) {
+	public Object sort(Object input, Time timer) {
 		if(input instanceof Comparable<?>[]) {
 			T[] inArray = (T[]) input;
-			return bubbleSortArray(inArray);
+			return bubbleSortArray(inArray, timer);
 		}
 		else if(input instanceof LinkedListNode<?>) {
-			return bubbleSortLinkedList(input);
+			return bubbleSortLinkedList(input, timer);
 		}
 		else {
 			throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support sorts for this data structure(" + input.getClass().getSimpleName() + ")");
 		}
 	}
 
-	public Object bubbleSortArray(T[] array) {
+	public Object bubbleSortArray(T[] array, Time timer) {
+		timer.start();
 		int swaps;
 		if(array instanceof String[]) {
 			do {
@@ -58,10 +60,12 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 				}
 			} while (swaps > 0);
 		}
+		timer.stop();
 		return array;
 	}
 
-	public Object bubbleSortLinkedList(Object input) {
+	public Object bubbleSortLinkedList(Object input, Time timer) {
+		timer.start();
 		LinkedListNode<T> head = (LinkedListNode<T>) input;
 		LinkedListNode<T> curr = head;
 		int swaps;
@@ -79,6 +83,7 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 			}
 			curr = head;
 		} while(swaps > 0);
+		timer.stop();
 		return head;
 	}
 
