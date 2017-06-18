@@ -27,10 +27,8 @@ public class Tester<T extends Comparable<T>> {
 		case ARRAY:
 			T[] array = gen.makeArray(test.getInitialSize(), test.getDataType());
 			for(int i = 0; i < test.getIterations(); i++) {
-				timer.start();
-				Object res = test.getSort().sort(array);
-				timer.stop();
-				test.addResult(new SortResult(timer.getTime(), "ms", array.length, test.getDataType(), test.getDataStructure(), true));
+				Object res = test.getSort().sort(array, test.getTimer());
+				test.addResult(new SortResult(test.getTimer().getTime(), "ms", array.length, test.getDataType(), test.getDataStructure(), true));
 				
 				array = gen.makeArray(array.length * 2, test.getDataType());
 			}
@@ -39,10 +37,8 @@ public class Tester<T extends Comparable<T>> {
 			LinkedListNode<T> head = gen.makeLinkedList(test.getInitialSize(), test.getDataType());
 			int currentLength = test.getInitialSize();
 			for(int i = 0; i < test.getIterations(); i++) {
-				timer.start();
-				Object result = test.getSort().sort(head);
-				timer.stop();
-				test.addResult(new SortResult(timer.getTime(), "ms", currentLength, test.getDataType(), test.getDataStructure(), true));
+				Object result = test.getSort().sort(head, test.getTimer());
+				test.addResult(new SortResult(test.getTimer().getTime(), "ms", currentLength, test.getDataType(), test.getDataStructure(), true));
 				currentLength *= 2;
 				
 				head = gen.makeLinkedList(currentLength, test.getDataType());
