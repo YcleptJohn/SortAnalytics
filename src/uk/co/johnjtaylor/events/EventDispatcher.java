@@ -12,7 +12,7 @@ import uk.co.johnjtaylor.events.listeners.ListenerList;
  *
  */
 public class EventDispatcher {
-	private HashMap<EventType, ListenerList> eventListeners = new HashMap<>();
+	private static HashMap<EventType, ListenerList> eventListeners = new HashMap<>();
 	
 	/**
 	 * EventDispatcher Constructor;
@@ -31,7 +31,7 @@ public class EventDispatcher {
 	 * @param event EventType(enum) - The given type of event to attach this listener to
 	 * @param listener The event handler/listener to be attached to the given event type
 	 */
-	public synchronized void registerListener(EventType event, Listener listener) {
+	public static synchronized void registerListener(EventType event, Listener listener) {
 		ListenerList currentlisteners = eventListeners.get(event);
 		currentlisteners.add(listener); // Update current ListenerList
 		eventListeners.remove(event);
@@ -50,7 +50,7 @@ public class EventDispatcher {
 		eventListeners.put(event, currentListeners);
 	}
 	
-	public void requestInvoke(Event e) {
+	public static void requestInvoke(Event e) {
 		dispatch(e);
 	}
 	
@@ -58,7 +58,7 @@ public class EventDispatcher {
 	 * Handles the dispatching of events to all appropriate listeners
 	 * @param event the event to dispatch
 	 */
-	private void dispatch(Event event) {
+	private static void dispatch(Event event) {
 		for(Listener currListener : eventListeners.get(event.getEventType())) {
 			event.getEventType().invoke(event, currListener);
 		}
