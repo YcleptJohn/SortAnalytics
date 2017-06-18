@@ -32,9 +32,9 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 
 	public Object bubbleSortArray(T[] array) {
 		int swaps;
-		do {
-			swaps = 0;
-			if(array instanceof String[]) { // Strings; need ignoreCase comparison
+		if(array instanceof String[]) {
+			do {
+				swaps = 0;
 				String[] strArray = (String[]) array;
 				for(int i = 0; i < strArray.length-1; i++) {
 					if(strArray[i].compareToIgnoreCase(strArray[i+1]) > 0) {
@@ -44,7 +44,10 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 						swaps++;
 					}
 				}
-			} else { // Other comparable type
+			} while (swaps > 0);
+		} else { // Non-string but Comabarable
+			do {
+				swaps = 0;
 				for(int i = 0; i < array.length-1; i++) {
 					if(array[i].compareTo(array[i+1]) > 0) {
 						T temp = array[i+1];
@@ -53,8 +56,8 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 						swaps++;
 					}
 				}
-			}
-		} while (swaps > 0);
+			} while (swaps > 0);
+		}
 		return array;
 	}
 
