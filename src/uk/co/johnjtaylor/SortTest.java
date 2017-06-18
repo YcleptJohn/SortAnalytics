@@ -19,6 +19,7 @@ public class SortTest {
 	private String scale;
 	private int iterations;
 	private ArrayList<SortResult> results;
+	private Time timer;
 	
 	/**
 	 * Initialise a new SortTest object to represent a sort to 
@@ -38,6 +39,7 @@ public class SortTest {
 		this.scale = scale;
 		this.iterations = iterations;
 		results = new ArrayList<>();
+		this.timer = new Time();
 	}
 	
 	/**
@@ -95,6 +97,13 @@ public class SortTest {
 	 */
 	public int getIterations() {
 		return iterations;
+	}
+	
+	/**
+	 * @return Time object representing this test's timer
+	 */
+	public Time getTimer() {
+		return timer;
 	}
 	
 	
