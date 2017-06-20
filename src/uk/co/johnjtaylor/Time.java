@@ -15,6 +15,7 @@ public class Time {
 	}
 	
 	public synchronized void start() {
+		timerActive = true;
 		increment = new TimerTask() {
 			@Override
 			public void run() {
