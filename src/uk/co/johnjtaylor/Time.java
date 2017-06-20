@@ -12,7 +12,7 @@ public class Time {
 		elapsed = 0L;
 	}
 	
-	public void start() {
+	public synchronized void start() {
 		increment = new TimerTask() {
 			@Override
 			public void run() {
@@ -22,19 +22,19 @@ public class Time {
 		scheduler.scheduleAtFixedRate(increment, 0L, 1L);
 	}
 	
-	public void pause() {
+	public synchronized void pause() {
 		stop();
 	}
 	
-	public void unpause() {
+	public synchronized void unpause() {
 		start();
 	}
 	
-	public void stop() {
+	public synchronized void stop() {
 		increment.cancel();
 	}
 	
-	public Long getTime() {
+	public synchronized Long getTime() {
 		return elapsed;
 	}
 
