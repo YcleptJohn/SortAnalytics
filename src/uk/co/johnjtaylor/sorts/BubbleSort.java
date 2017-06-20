@@ -45,9 +45,7 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 				swaps = 0;
 				String[] strArray = (String[]) array;
 				for(int i = 0; i < strArray.length-1; i++) {
-					timer.pause();
 					EventDispatcher.requestInvoke(new BubbleSortComparisonEvent(this));
-					timer.unpause();
 					if(strArray[i].compareToIgnoreCase(strArray[i+1]) > 0) {
 						timer.pause();
 						EventDispatcher.requestInvoke(new BubbleSortSwapEvent(this));
@@ -78,8 +76,8 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 				}
 			} while (swaps > 0);
 		}
-		EventDispatcher.requestInvoke(new BubbleSortEndEvent(this));
 		timer.stop();
+		EventDispatcher.requestInvoke(new BubbleSortEndEvent(this));
 		return array;
 	}
 
