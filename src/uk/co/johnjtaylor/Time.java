@@ -7,31 +7,35 @@ public class Time {
 	private Long elapsed;
 	private Timer scheduler = new Timer();
 	private TimerTask increment;
+	private boolean timerActive;
 	
 	public Time() {
 		elapsed = 0L;
+		timerActive = false;
 	}
 	
 	public synchronized void start() {
 		increment = new TimerTask() {
 			@Override
 			public void run() {
-				elapsed++;
+				if(timerActive) {
+					elapsed++;
+				}
 			}
 		};
 		scheduler.scheduleAtFixedRate(increment, 0L, 1L);
 	}
 	
 	public synchronized void pause() {
-		stop();
+		timerActive = false;
 	}
 	
 	public synchronized void unpause() {
-		start();
+		timerActive = true;
 	}
 	
 	public synchronized void stop() {
-		increment.cancel();
+		pause();
 	}
 	
 	public synchronized Long getTime() {
