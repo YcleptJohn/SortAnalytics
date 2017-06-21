@@ -24,7 +24,7 @@ public class Time {
 				}
 			}
 		};
-		scheduler.scheduleAtFixedRate(increment, 0L, 1L);
+		scheduler.scheduleAtFixedRate(increment, 1L, 1L);
 	}
 	
 	public synchronized void pause() {
