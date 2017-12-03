@@ -15,40 +15,26 @@ public class Main {
 		System.exit(0);
 		BubbleSort<Integer> bub = new BubbleSort<>();
 		t.test(bub, 100, "ff", 5);*/
-		QuickSort<Integer> qs = new QuickSort<>();
-		SortTest st = new SortTest(qs, DataStructure.LINKEDLIST, DataType.STRING, 5, "~", 1);
+		BubbleSort<Integer> bubble = new BubbleSort<>();
+		// QuickSort<Integer> qs = new QuickSort<>();
+		SortTest st = new SortTest(bubble, DataStructure.ARRAY, DataType.STRING, 100, "~", 5);
 		ArrayList<SortResult> results = t.run(st);
 		for(SortResult r : results) {
 			System.out.print(r.getSize());
 			System.out.print(" | " + r.getTime());
 			System.out.print(r.getTimeUnits());
 			System.out.print(" | (" + r.getDataStructure() + ")[" + r.getDataType() + "]\n");
-			
 		}
-		
-		
-		
-		
-		
-		DataGenerator dg = new DataGenerator();/*
-		Integer[] array = (Integer[]) dg.makeArray(20, DataType.INTEGER);
-		for(Integer s : array) {
-			//System.out.println(s);
-		}*/
-		
-		LinkedListNode<Integer> head = dg.makeLinkedList(5, DataType.INTEGER);
-		LinkedListNode<Integer> curr = head;
-		System.out.println("UNSORTED");
-		while(curr.getNextNode() != null) {
-			System.out.println(curr.getValue());
-			curr = curr.getNextNode();
-		}
-		System.out.println("~\n~\n~");
-		
-		BubbleSort<Integer> bs = new BubbleSort<>();
-		bs.sort(head);
-		
-		
+
+
+		// DataGenerator dg = new DataGenerator();
+		// Integer[] array = (Integer[]) dg.makeArray(20, DataType.INTEGER);
+		// for(Integer s : array) {
+		// 	//System.out.println(s);
+		// }
+
+
 		System.out.println("EXEC END");
+		System.exit(0);
 	}
 }

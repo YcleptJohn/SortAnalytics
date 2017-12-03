@@ -1,10 +1,12 @@
 package uk.co.johnjtaylor.sorts;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 import uk.co.johnjtaylor.Sort;
 import uk.co.johnjtaylor.Time;
 import uk.co.johnjtaylor.events.EventDispatcher;
+import uk.co.johnjtaylor.events.generic.SortEvent;
 import uk.co.johnjtaylor.events.sorts.bubble.BubbleSortComparisonEvent;
 import uk.co.johnjtaylor.events.sorts.bubble.BubbleSortEndEvent;
 import uk.co.johnjtaylor.events.sorts.bubble.BubbleSortStartEvent;
@@ -37,7 +39,9 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 	}
 
 	public Object bubbleSortArray(T[] array, Time timer) {
-		EventDispatcher.requestInvoke(new BubbleSortStartEvent(this));
+		ArrayList<SortEvent> events = new ArrayList<SortEvent>();
+		events.add((SortEvent) new BubbleSortStartEvent(this));
+		// EventDispatcher.requestInvoke(new BubbleSortStartEvent(this));
 		timer.start();
 		int swaps;
 		if(array instanceof String[]) {
@@ -45,10 +49,15 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 				swaps = 0;
 				String[] strArray = (String[]) array;
 				for(int i = 0; i < strArray.length-1; i++) {
-					EventDispatcher.requestInvoke(new BubbleSortComparisonEvent(this));
+
+					timer.pause();
+					// EventDispatcher.requestInvoke(new BubbleSortComparisonEvent(this));
+					events.add((SortEvent) new BubbleSortComparisonEvent(this));
+					timer.unpause();
 					if(strArray[i].compareToIgnoreCase(strArray[i+1]) > 0) {
 						timer.pause();
-						EventDispatcher.requestInvoke(new BubbleSortSwapEvent(this));
+						// EventDispatcher.requestInvoke(new BubbleSortSwapEvent(this));
+						events.add((SortEvent) new BubbleSortSwapEvent(this));
 						timer.unpause();
 						String temp = strArray[i+1];
 						strArray[i+1] = strArray[i];
@@ -61,13 +70,14 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 			do {
 				swaps = 0;
 				for(int i = 0; i < array.length-1; i++) {
-					timer.pause();
-					EventDispatcher.requestInvoke(new BubbleSortComparisonEvent(this));
-					timer.unpause();
+					// timer.pause();
+					// EventDispatcher.requestInvoke(new BubbleSortComparisonEvent(this));
+
+					// timer.unpause();
 					if(array[i].compareTo(array[i+1]) > 0) {
-						timer.pause();
-						EventDispatcher.requestInvoke(new BubbleSortSwapEvent(this));
-						timer.unpause();
+						// timer.pause();
+						// EventDispatcher.requestInvoke(new BubbleSortSwapEvent(this));
+						// timer.unpause();
 						T temp = array[i+1];
 						array[i+1] = array[i];
 						array[i] = temp;
@@ -77,7 +87,8 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 			} while (swaps > 0);
 		}
 		timer.stop();
-		EventDispatcher.requestInvoke(new BubbleSortEndEvent(this));
+		// EventDispatcher.requestInvoke(new BubbleSortEndEvent(this));
+		events.add((SortEvent) new BubbleSortEndEvent(this));
 		return array;
 	}
 
